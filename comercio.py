@@ -2,7 +2,7 @@ from enum import Enum
 
 # Representa as marcas para cada um dos produtos 
 class MarcaChip(Enum):
-    INTEL = 1
+    INTEL = 1   
     AMD = 2
 
 class MarcaNotebook(Enum):
@@ -28,7 +28,7 @@ class Produto():
         if self.quantity >= amount:
             self.quantity -= amount
         else:
-            raise Exception("Quantidade insuficiente em estoque")
+            return False # MUDAR ISSO PRA RAISE!
 
 # Classes específicas para cada tipo de produto com informações exclusivas para ela
 class Chip(Produto):
@@ -69,25 +69,17 @@ class Inventario():
 
     def sell_product(self, bar_code, amount):
         product = self.check_barcode_inventory(bar_code)
-        if product:
-            product.decrease(amount)
-            print(f"Venda de {amount} unidades de {product.name}.")
-        else:
-            raise Exception("Produto não está no inventário")
+        product.decrease(amount)
+        print(f"Venda de {amount} unidades de {product.name}.")
+        # ADD EXCECAO PROPRIA
 
 # Exemplo:
 a = Chip('Intel Z790', '12345', 12.0, 34, MarcaChip.INTEL)
 b = Notebook('MacBook', '54321', 1200.0, 3, MarcaNotebook.MACBOOK)
-c = Instrument('Guitarra', '67890', 500.0, 1, MarcaInstrument.GUITAR)
-
+c = Instrument('Guitarra', '67890', 500.0, 67, MarcaInstrument.GUITAR)
 inv = Inventario()
 inv.add_to_inventory(a)
 inv.add_to_inventory(b)
 inv.add_to_inventory(c)
-
-try:
-    inv.sell_product('12345', 12)  
-except Exception as e:
-    print(f"Erro na venda: {e}")
-
+inv.sell_product('12345', 1)  
 inv.check_products_inventory()
