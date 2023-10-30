@@ -34,7 +34,7 @@ class Produto():
         if self.quantity >= amount:
             self.quantity -= amount
         else:
-            return False # MUDAR ISSO PRA RAISE!
+            raise OutOfStockException(self.name)
 
 # Classes específicas para cada tipo de produto com informações exclusivas para ela
 class Chip(Produto):
