@@ -1,5 +1,11 @@
 from enum import Enum
 
+# Classe para o erro de estoque insuficiente
+class OutOfStockException(Exception):
+    def __init__(self, product_name):
+        self.product_name = product_name
+        super().__init__(f"O produto {product_name} está fora de estoque.")
+
 # Representa as marcas para cada um dos produtos 
 class MarcaChip(Enum):
     INTEL = 1   
