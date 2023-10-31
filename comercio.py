@@ -75,9 +75,11 @@ class Inventario():
 
     def sell_product(self, bar_code, amount):
         product = self.check_barcode_inventory(bar_code)
-        product.decrease(amount)
-        print(f"Venda de {amount} unidades de {product.name}.")
-        # ADD EXCECAO PROPRIA
+        try:
+            product.decrease(amount)
+            print(f"Venda de {amount} unidades de {product.name}.")
+        except OutOfStockException as e:
+            print(f"Erro ao vender o produto: {e}")
 
 # Exemplo:
 a = Chip('Intel Z790', '12345', 12.0, 34, MarcaChip.INTEL)
